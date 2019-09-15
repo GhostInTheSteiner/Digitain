@@ -1,0 +1,19 @@
+body {
+    background: black;
+}
+
+.rain-string {
+    display: grid;
+    width: 20px;
+    text-align: center;
+    max-height: 20px;
+}
+
+.rain-character {
+    color: green;
+    font-weight: bold;
+}
+
+.rain-view {
+    display: flex;
+}

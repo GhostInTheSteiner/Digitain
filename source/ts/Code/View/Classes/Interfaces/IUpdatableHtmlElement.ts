@@ -1,0 +1,4 @@
+interface IUpdatableHtmlElement
+{
+    GetNextState(): HTMLElement;
+}

@@ -3,6 +3,8 @@ export default class RainCharacter implements IUpdatableHtmlElement
     private _visible: boolean;
     private _opacity: number;
     private _blurStrength: Number;
+    
+    private lifeTimeCyclesRemaining: number
 
 
     constructor(
@@ -12,7 +14,9 @@ export default class RainCharacter implements IUpdatableHtmlElement
     )
     {
         this._visible = false;
-        this._opacity = 1.0
+        this._opacity = 1.0;
+
+        this.lifeTimeCyclesRemaining = this.lifeTimeCycles;
     }
 
 
@@ -54,6 +58,14 @@ export default class RainCharacter implements IUpdatableHtmlElement
         return this.toHtmlElement();
     }
 
+
+    public LightUp()
+    {
+        this._visible = true;
+        this._opacity = 1;
+        this.lifeTimeCyclesRemaining = this.lifeTimeCycles;
+    }
+
     private updateObject(): boolean
     {
         if (!this._visible)
@@ -67,7 +79,7 @@ export default class RainCharacter implements IUpdatableHtmlElement
             this._visible = false
             return true
         }
-        else if (this.lifeTimeCycles < 1)
+        else if (this.lifeTimeCyclesRemaining < 1)
         {
             //2) Entered after no lifetime left
             this._opacity -= this.fadeOutLevel;
@@ -76,10 +88,11 @@ export default class RainCharacter implements IUpdatableHtmlElement
         else if (this._visible)
         {
             //1) Entered after set to visible
-            this.lifeTimeCycles--;
+            this.lifeTimeCyclesRemaining--;
             return true
         }
     }
+
 
     private toHtmlElement(): HTMLSpanElement
     {

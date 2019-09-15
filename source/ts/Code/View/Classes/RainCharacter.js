@@ -9,6 +9,7 @@ var RainCharacter = (function () {
         this.fadeOutLevel = fadeOutLevel;
         this._visible = false;
         this._opacity = 1.0;
+        this.lifeTimeCyclesRemaining = this.lifeTimeCycles;
     }
     Object.defineProperty(RainCharacter.prototype, "Visible", {
         get: function () {
@@ -45,6 +46,11 @@ var RainCharacter = (function () {
         this.updateObject();
         return this.toHtmlElement();
     };
+    RainCharacter.prototype.LightUp = function () {
+        this._visible = true;
+        this._opacity = 1;
+        this.lifeTimeCyclesRemaining = this.lifeTimeCycles;
+    };
     RainCharacter.prototype.updateObject = function () {
         if (!this._visible) {
             return false;
@@ -53,12 +59,12 @@ var RainCharacter = (function () {
             this._visible = false;
             return true;
         }
-        else if (this.lifeTimeCycles < 1) {
+        else if (this.lifeTimeCyclesRemaining < 1) {
             this._opacity -= this.fadeOutLevel;
             return true;
         }
         else if (this._visible) {
-            this.lifeTimeCycles--;
+            this.lifeTimeCyclesRemaining--;
             return true;
         }
     };

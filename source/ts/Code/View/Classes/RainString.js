@@ -11,11 +11,7 @@ var RainString = (function () {
         this.characterBlurredStrength = characterBlurredStrength;
         this.characterFadeCount = characterFadeCount;
         this.characterFadeBegin = characterFadeBegin;
-        this.rainCharacterArray = new Array();
-        this.currentCharacterIndex = 0;
-        this.timeUpdateLast = new Date().getTime();
-        this.timeInit = this.timeUpdateLast;
-        this.fillString();
+        this.init();
     }
     RainString.prototype.GetNextState = function () {
         var timeCurrent = new Date().getTime();
@@ -24,6 +20,7 @@ var RainString = (function () {
         else if (timeCurrent - this.timeUpdateLast < this.stringDelayUpdate) {
         }
         else if (!this.updateObject()) {
+            this.init(true);
         }
         else {
             var htmlDivElement = this.toHtmlDivElement();
@@ -33,6 +30,16 @@ var RainString = (function () {
             return htmlDivElement;
         }
         return this.toHtmlDivElement();
+    };
+    RainString.prototype.init = function (reInit) {
+        if (reInit === void 0) { reInit = false; }
+        if (!reInit)
+            this.rainCharacterArray = new Array();
+        this.currentCharacterIndex = 0;
+        this.timeUpdateLast = new Date().getTime();
+        this.timeInit = this.timeUpdateLast;
+        if (!reInit)
+            this.fillString();
     };
     RainString.prototype.updateObject = function () {
         this.blurDrop();
@@ -56,7 +63,7 @@ var RainString = (function () {
     };
     RainString.prototype.showNextCharacter = function () {
         if (this.rainCharacterArray.length > this.currentCharacterIndex) {
-            this.rainCharacterArray[this.currentCharacterIndex].Visible = true;
+            this.rainCharacterArray[this.currentCharacterIndex].LightUp();
             this.currentCharacterIndex++;
             return true;
         }

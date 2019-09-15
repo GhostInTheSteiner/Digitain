@@ -19,12 +19,7 @@ export default class RainString implements IUpdatableHtmlElement
         private characterFadeBegin: number
     )
     {
-        this.rainCharacterArray = new Array<RainCharacter>();
-        this.currentCharacterIndex = 0;
-        this.timeUpdateLast = new Date().getTime();
-        this.timeInit = this.timeUpdateLast;
-
-        this.fillString();
+        this.init();
     }
 
 
@@ -46,6 +41,8 @@ export default class RainString implements IUpdatableHtmlElement
         {
             //Entered in case all of RainString's characters are shown
 
+            this.init(true); //reinitialize
+
             //console.log("INFO:\n\nCode: 'Fall finished.'\nDescription: 'No more characters to show for RainString:'\n");
             //console.log(this);
         }
@@ -57,7 +54,7 @@ export default class RainString implements IUpdatableHtmlElement
 
             if (!htmlDivElement.hasChildNodes())
             {
-              //  console.log("WARN:\n\nCode: 'No drop.'\nDescription: 'No RainCharacter in RainString:'\n");
+                //  console.log("WARN:\n\nCode: 'No drop.'\nDescription: 'No RainCharacter in RainString:'\n");
                 //console.log(this);
             }
 
@@ -68,6 +65,16 @@ export default class RainString implements IUpdatableHtmlElement
 
         //Returned whenever no render took place (almost always)
         return this.toHtmlDivElement()
+    }
+
+    private init(reInit: boolean = false)
+    {
+        if (!reInit) this.rainCharacterArray = new Array<RainCharacter>();
+        this.currentCharacterIndex = 0;
+        this.timeUpdateLast = new Date().getTime();
+        this.timeInit = this.timeUpdateLast;
+
+        if (!reInit) this.fillString();
     }
 
     private updateObject(): boolean
@@ -99,7 +106,9 @@ export default class RainString implements IUpdatableHtmlElement
             .from(this.stringText)
             .forEach(stringChar =>
             {
-                this.rainCharacterArray.push(new RainCharacter(stringChar));
+                this.rainCharacterArray.push(
+                    new RainCharacter(stringChar)
+                );
             });
     }
 
@@ -108,7 +117,7 @@ export default class RainString implements IUpdatableHtmlElement
         if (this.rainCharacterArray.length > this.currentCharacterIndex)
         {
             //There still are more characters
-            this.rainCharacterArray[this.currentCharacterIndex].Visible = true;
+            this.rainCharacterArray[this.currentCharacterIndex].LightUp();
 
             this.currentCharacterIndex++;
 

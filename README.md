@@ -1,2 +1,2 @@
 # Digitain
-DIGItal rAIN Matrix-esque animation in TypeScript 
+Matrix-esque **Digit**al r**ain** animation written in TypeScript.

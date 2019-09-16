@@ -27,7 +27,6 @@ var RainCharacter = (function () {
         },
         set: function (v) {
             this._opacity = v;
-            console.log(this._opacity);
         },
         enumerable: true,
         configurable: true
@@ -38,6 +37,16 @@ var RainCharacter = (function () {
         },
         set: function (v) {
             this._blurStrength = v;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(RainCharacter.prototype, "Color", {
+        get: function () {
+            return this._color;
+        },
+        set: function (v) {
+            this._color = v;
         },
         enumerable: true,
         configurable: true
@@ -64,6 +73,10 @@ var RainCharacter = (function () {
             return true;
         }
         else if (this._visible) {
+            if (this.lifeTimeCyclesRemaining == this.lifeTimeCycles)
+                this._color = "gold";
+            else
+                this._color = "green";
             this.lifeTimeCyclesRemaining--;
             return true;
         }

@@ -58,7 +58,7 @@ var RainString = (function () {
         Array
             .from(this.stringText)
             .forEach(function (stringChar) {
-            _this.rainCharacterArray.push(new RainCharacter_1.default(stringChar));
+            _this.rainCharacterArray.push(new RainCharacter_1.default(stringChar, _this.characterFadeBegin, 1 / _this.characterFadeCount));
         });
     };
     RainString.prototype.showNextCharacter = function () {

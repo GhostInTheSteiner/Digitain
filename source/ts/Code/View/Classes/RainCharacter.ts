@@ -3,6 +3,7 @@ export default class RainCharacter implements IUpdatableHtmlElement
     private _visible: boolean;
     private _opacity: number;
     private _blurStrength: Number;
+    private _color : string;
     
     private lifeTimeCyclesRemaining: number
 
@@ -38,7 +39,6 @@ export default class RainCharacter implements IUpdatableHtmlElement
     public set Opacity(v: number)
     {
         this._opacity = v;
-        console.log(this._opacity)
     }
 
     public get BlurStrength(): Number
@@ -50,6 +50,14 @@ export default class RainCharacter implements IUpdatableHtmlElement
     {
         this._blurStrength = v;
     }
+
+    public get Color() : string {
+        return this._color;
+    }
+    public set Color(v : string) {
+        this._color = v;
+    }
+
 
     public GetNextState(): HTMLSpanElement
     {
@@ -87,6 +95,11 @@ export default class RainCharacter implements IUpdatableHtmlElement
         }
         else if (this._visible)
         {
+            if (this.lifeTimeCyclesRemaining == this.lifeTimeCycles)
+                this._color = "gold";
+            else
+                this._color = "green";
+
             //1) Entered after set to visible
             this.lifeTimeCyclesRemaining--;
             return true
@@ -101,7 +114,7 @@ export default class RainCharacter implements IUpdatableHtmlElement
         htmlSpanElement.classList.add("rain-character")
         htmlSpanElement.textContent = this.character
 
-        htmlSpanElement.style.textShadow = "0px 0px " + this._blurStrength + "px green"
+        htmlSpanElement.style.textShadow = "0px 0px " + this._blurStrength + "px green";
         htmlSpanElement.style.opacity = this._opacity.toString();
         htmlSpanElement.style.visibility =
             this.Visible ?

@@ -107,7 +107,11 @@ export default class RainString implements IUpdatableHtmlElement
             .forEach(stringChar =>
             {
                 this.rainCharacterArray.push(
-                    new RainCharacter(stringChar)
+                    new RainCharacter(
+                        stringChar,
+                        this.characterFadeBegin,
+                        1 / this.characterFadeCount
+                    )
                 );
             });
     }

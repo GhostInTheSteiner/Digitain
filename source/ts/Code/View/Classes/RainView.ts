@@ -9,7 +9,7 @@ export default class RainView implements IUpdatableHtmlElement
         private stringTextArray: Array<string>,
         private characterBlurredCount: number = 1,
         private characterBlurredStrength: number = 5,
-        private characterFadeCount: number = 10,
+        private characterFadeCount: number = 40,
         private characterFadeBegin: number = 10,
         private stringDelayStartVariation: number = 10000,
         private stringDelayUpdate: number = 100,
@@ -61,7 +61,7 @@ export default class RainView implements IUpdatableHtmlElement
                 new RainString(
                     stringText,
                     Math.random() * this.stringDelayStartVariation,
-                    this.stringDelayUpdate * (Math.random() + 0.5),
+                    this.stringDelayUpdate * (Math.random() + 1.0),
                     this.stringDelayUpdateDynamic,
                     this.characterBlurredCount,
                     this.characterBlurredStrength,
